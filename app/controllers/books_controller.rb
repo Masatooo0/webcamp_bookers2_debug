@@ -1,9 +1,10 @@
 class BooksController < ApplicationController
-  before_action :baria_user, only: [:edit, :destroy, :update] 
+  before_action :baria_user, only: [:edit, :destroy, :update]
   def show
     @new = Book.new
     @book = Book.find(params[:id])
     @user = @book.user
+    @book_comment = BookComment.new
   end
 
   def index
@@ -51,7 +52,7 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body)
   end
-  
+
   def baria_user
     unless Book.find(params[:id]).user.id.to_i == current_user.id
       redirect_to books_path
