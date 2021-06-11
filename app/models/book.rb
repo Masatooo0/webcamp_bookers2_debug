@@ -8,4 +8,7 @@ class Book < ApplicationRecord
 	def favorited_by?(user)
 		favorites.where(user_id: user.id).exists?
 	end
+	def Book.search(search_word)
+		Book.where(['category LIKE ?', "#{search_word}"])
+	end
 end
